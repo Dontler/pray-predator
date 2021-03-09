@@ -1,0 +1,39 @@
+﻿<Window x:Class="PrayPredator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PrayPredator"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" d:DataContext="{d:DesignData MainWindow |(in PrayPredator)}">
+    <Grid x:Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Margin="10" Orientation="Horizontal" Grid.Row="0" Background="#BCC1BE">
+            <Label Target="{Binding ElementName=AlphaSb}" Content="Вер рж ТВ." />
+            <ScrollBar Scroll="AlphaSb_OnScroll" Margin="25 0"  Orientation="Horizontal" x:Name="AlphaSb" MinWidth="50" Width="200" />
+            <Label Target="{Binding ElementName=BetaSb}" Content="Вер см ТВ" />
+            <ScrollBar Scroll="BetaSb_OnScroll" Margin="25 0" Orientation="Horizontal" x:Name="BetaSb" MinWidth="50" Width="200" />
+            <Label Target="{Binding ElementName=GammaSb}" Content="Вер см ХЩ" />
+            <ScrollBar Scroll="GammaSb_OnScroll" Margin="25 0" Orientation="Horizontal" x:Name="GammaSb" MinWidth="50" Width="200" />
+            <Label Target="{Binding ElementName=DeltaSb}" Content="Вер рж ХЩ" />
+            <ScrollBar Scroll="DeltaSb_OnScroll" Margin="25 0" Orientation="Horizontal" x:Name="DeltaSb" MinWidth="50" Width="200" />
+            <StackPanel Orientation="Horizontal" Margin="10" MinWidth="50">
+                <RadioButton Tag="RungeKutta" GroupName="Algorithms" Content="Runge–Kutta" Margin="10" Checked="ChangeAlgorithm" />
+                <RadioButton Tag="Eulers" GroupName="Algorithms" Content="Euler" Margin="10" IsChecked="True" Checked="ChangeAlgorithm" />
+                <CheckBox Tag="Visualization" x:Name="Phase" Content="Phase" Margin="10" IsChecked="False" />
+            </StackPanel>
+        </StackPanel>
+        <lvc:CartesianChart Zoom="Xy" Series="{Binding Series}" LegendLocation="Right" Grid.Row="1">
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}" />
+            </lvc:CartesianChart.AxisX>
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Title="Population" LabelFormatter="{Binding LabelFormatter}"/>
+            </lvc:CartesianChart.AxisY>
+        </lvc:CartesianChart>
+    </Grid>
+</Window>
